@@ -105,11 +105,6 @@ class ControllerRequestResolver implements ArgumentValueResolverInterface
         );
 
         $form->setRequest($newRequest);
-        $form->setJson($form->json());
-
-        if ($form->isJson()) {
-            $newRequest->request->replace($form->json()->all());
-        }
 
         return $form;
     }
