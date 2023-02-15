@@ -1,5 +1,5 @@
 {
-    "name": "adamsafr/form-request-bundle",
+    "name": "baiseiit/form-request-bundle",
     "description": "An adaptation of the Laravel Form Request for Symfony",
     "type": "symfony-bundle",
     "license": "MIT",
