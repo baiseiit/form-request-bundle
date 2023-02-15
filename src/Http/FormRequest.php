@@ -3,6 +3,7 @@
 namespace Adamsafr\FormRequestBundle\Http;
 
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints\Collection;
 
 class FormRequest extends BaseFormRequest
 {
@@ -19,7 +20,7 @@ class FormRequest extends BaseFormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return null|Constraint|Constraint[]
+     * @return null|Constraint
      */
     public function rules()
     {
@@ -44,5 +45,25 @@ class FormRequest extends BaseFormRequest
     public function validationGroups(): array
     {
         return [];
+    }
+
+    public function validated() : array
+    {
+        $rules = $this->rules();
+        $validationData = $this->validationData();
+
+        if (!$rules instanceof Collection) {
+            return $validationData;
+        }
+
+        $validated = [];
+
+        foreach (array_keys($rules->fields) as $field) {
+            if (isset($validationData[$field])) {
+                $validated[$field] = $validationData[$field];
+            }
+        }
+
+        return $validated;
     }
 }
